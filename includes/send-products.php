@@ -48,8 +48,13 @@ function wps_export_products_to_json()
 
             // Add image URLs to product data
             $product_data['images'] = array();
+
+            //add thumbnail url to product data['images']
+            $thumbnail_id = get_post_thumbnail_id($product_id);
+            array_push($product_data['images'], wp_get_attachment_url($thumbnail_id));
+
             foreach ($product->get_gallery_image_ids() as $image_id) {
-                $product_data['images'][] = wp_get_attachment_url($image_id);
+                array_push($product_data['images'], wp_get_attachment_url($image_id));
             }
 
             // Add product data to the array
