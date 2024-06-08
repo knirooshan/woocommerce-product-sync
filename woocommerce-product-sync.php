@@ -38,16 +38,10 @@ class Woo_Product_Sync
         //add admin menu
         add_action('admin_menu', array($this, 'add_admin_menu'));
 
-        //activation hook
-        register_activation_hook(__FILE__, array($this, 'activate'));
-
         //set options
         $this->options = [
-            'client_id' => get_option('wps_client_id'),
-            'client_secret' => get_option('wps_client_secret'),
+            'filename' => get_option('wps_filename'),
             'sender_url' => get_option('wps_sender_url'),
-            'sender_client_id' => get_option('wps_sender_client_id'),
-            'sender_client_secret' => get_option('wps_sender_client_secret'),
         ];
     }
 
@@ -89,24 +83,8 @@ class Woo_Product_Sync
     //register setting fields
     public function register_settings()
     {
-        add_option('wps_client_id', '');
-        add_option('wps_client_secret', '');
+        add_option('wps_filename', '');
         add_option('wps_sender_url', '');
-        add_option('wps_sender_client_id', '');
-        add_option('wps_sender_client_secret', '');
-    }
-
-    // Activation hook: generate keys if they don't exist
-    public function activate()
-    {
-        if (false === get_option('wps_sender_client_id')) {
-            $sender_client_id = bin2hex(random_bytes(16)); // 32 characters
-            update_option('wps_sender_client_id', $sender_client_id);
-        }
-        if (false === get_option('wps_sender_client_secret')) {
-            $sender_client_secret = bin2hex(random_bytes(16)); // 32 characters
-            update_option('wps_sender_client_secret', $sender_client_secret);
-        }
     }
 
     //register actions
