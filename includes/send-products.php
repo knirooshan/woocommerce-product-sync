@@ -57,6 +57,12 @@ function wps_export_products_to_json()
                 array_push($product_data['images'], wp_get_attachment_url($image_id));
             }
 
+            //remove category ids, image ids, and tag ids from array
+            unset($product_data['category_ids']);
+            unset($product_data['image_id']);
+            unset($product_data['tag_ids']);
+            unset($product_data['gallery_image_ids']);
+
             // Add product data to the array
             $products_data[] = $product_data;
         }
