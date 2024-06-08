@@ -17,12 +17,10 @@ function wps_export_products_to_json()
         wp_mkdir_p($upload_path);
     }
 
-    $random_file_name = 'products-' . date('Y-m-d-H-i-s') . '.json';
-    //update option field
-    update_option('wps_filename', $random_file_name);
+    $file_name = get_option('wps_filename') . '.json';
 
     // Define the file path
-    $file_path = $upload_path . '/' . $random_file_name;
+    $file_path = $upload_path . '/' . $file_name;
 
     // Initialize an empty array to store product data
     $products_data = array();

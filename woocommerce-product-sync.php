@@ -38,6 +38,9 @@ class Woo_Product_Sync
         //add admin menu
         add_action('admin_menu', array($this, 'add_admin_menu'));
 
+        //activation hook
+        register_activation_hook(__FILE__, array($this, 'activate'));
+
         //set options
         $this->options = [
             'filename' => get_option('wps_filename'),
@@ -85,6 +88,14 @@ class Woo_Product_Sync
     {
         add_option('wps_filename', '');
         add_option('wps_sender_url', '');
+    }
+
+    public function activate()
+    {
+        if (false === get_option('wps_filename')) {
+            $filename = bin2hex(random_bytes(8)); // 16 characters
+            update_option('wps_filename', $filename);
+        }
     }
 
     //register actions
