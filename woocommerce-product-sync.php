@@ -38,6 +38,9 @@ class Woo_Product_Sync
         //add admin menu
         add_action('admin_menu', array($this, 'add_admin_menu'));
 
+        // Register setting fields
+        add_action('admin_init', array($this, 'register_settings'));
+
         //activation hook
         register_activation_hook(__FILE__, array($this, 'activate'));
 
@@ -45,6 +48,7 @@ class Woo_Product_Sync
         $this->options = [
             'filename' => get_option('wps_filename'),
             'sender_url' => get_option('wps_sender_url'),
+            'sender_filename' => get_option('wps_sender_filename'),
         ];
     }
 
@@ -88,14 +92,13 @@ class Woo_Product_Sync
     {
         add_option('wps_filename', '');
         add_option('wps_sender_url', '');
+        add_option('wps_sender_filename', '');
     }
 
     public function activate()
     {
-        if (false === get_option('wps_filename')) {
-            $filename = bin2hex(random_bytes(8)); // 16 characters
-            update_option('wps_filename', $filename);
-        }
+        $filename = bin2hex(random_bytes(8)); // 16 characters
+        update_option('wps_filename', $filename);
     }
 
     //register actions
@@ -149,4 +152,3 @@ class Woo_Product_Sync
 //initialize the class
 $woo_product_sync = new Woo_Product_Sync();
 $woo_product_sync->register_actions();
-$woo_product_sync->register_settings();

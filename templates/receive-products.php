@@ -13,7 +13,7 @@
 <script>
     //check all settings fields are filled or not
     function check_settings(){
-        var filename = '<?php echo get_option('wps_filename'); ?>';
+        var filename = '<?php echo get_option('wps_sender_filename'); ?>';
         var sender_url = '<?php echo get_option('wps_sender_url'); ?>';
 
         //check if any field is empty
